@@ -1,0 +1,33 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Node.js RestFul CRUD API whit Node.js, Express and Mysql",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "restapi"
+  ],
+  "author": "BlueScreen",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.5",
+    "express": "^4.19.2",
+    "formidable": "^3.5.1",
+    "googleapis": "^134.0.0",
+    "html-pdf": "^3.0.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.15",
+    "nodemon": "^3.0.3",
+    "sharp": "^0.33.3"
+  }
+}

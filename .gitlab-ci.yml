@@ -1,0 +1,31 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: alpine
+  before_script:
+    - apk add zip
+  script:
+    - echo "====== Packing artifact ======"
+    - zip -r $TARGET_APP_NAME.zip $TARGET_APP_NAME
+  artifacts:
+    paths:
+      - $TARGET_APP_NAME.zip
+
+deploy:
+  stage: deploy
+  image: alpine
+  before_script:
+    - echo "====== Testing access production server ======"
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_PEM" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - echo "====== Deploying artifacts to production server ======"
+    - scp -o StrictHostKeyChecking=no $TARGET_APP_NAME.zip ubuntu@$TARGET_SERVER_HOST:/var/www/html
+    - ssh -o StrictHostKeyChecking=no ubuntu@$TARGET_SERVER_HOST 
+      "cd $MAIN_DIR; unzip -o $TARGET_APP_NAME.zip; rm $TARGET_APP_NAME.zip; cd $TARGET_APP_NAME; npm install; pm2 delete $TARGET_APP_NAME; pm2 start npm --name "$TARGET_APP_NAME" -- start"
