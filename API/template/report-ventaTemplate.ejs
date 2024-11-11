@@ -218,18 +218,27 @@
       <div id="details" class="clearfix">
         <div id="client">
           <div class="to">COMPROBANTE DE COMPRA PARA:</div>
-          <% if (datos.length > 0) { %>
+          <!-- <% if (datos.length > 0) { %>
             <h2 class="name"> <%= datos[0].nombre %></h2>
             <div class="address"> <%= datos[0].direccion %></div>
             <div class="email"><a href="#"> <%= datos[0].email %></a></div>
+          <% }%> -->
+        
+          <% if (datos.length > 0) { %>
+            <h2 class="name"> <%= datos[0] %></h2>
+            <div class="address"> <%= datos[0] %></div>
+            <div class="email"><a href="#"> <%= datos[0] %></a></div>
           <% }%>
-         
         </div>
         <div id="invoice">
           <h1>DATOS VENTA: </h1>
-          <% if (datos.length > 0) { %>
+          <!-- <% if (datos.length > 0) { %>
             <div class="date">VENDEDOR: <%= datos[0].vendedor %></div>
             <div class="date">EMAIL: <%= datos[0].emailVendedor %></div>
+          <% }%> -->
+          <% if (datos.length > 0) { %>
+            <div class="date">VENDEDOR: <%= datos[0] %></div>
+            <div class="date">EMAIL: <%= datos[0] %></div>
           <% }%>
         </div>
       </div>
@@ -261,21 +270,21 @@
             <td colspan="2"></td>
             <td colspan="2">SUBTOTAL</td>
             <% if (datos.length > 0) { %>
-            <td><%= datos[0].subTotal %></td>
+            <td><%= datos[0] %></td>
             <% } %>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">IVA</td>
             <% if (datos.length > 0) { %>
-              <td><%= datos[0].iva %></td>
+              <td><%= datos[0] %></td>
             <% } %>
           </tr>
           <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
             <% if (datos.length > 0) { %>
-              <td><%= datos[0].total %></td>
+              <td><%= datos[0] %></td>
             <% } %>
           </tr>
         </tfoot>

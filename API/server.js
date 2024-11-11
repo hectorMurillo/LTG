@@ -33,7 +33,7 @@ http.createServer(options,app).listen(port,()=>{
 
 //simple route
 app.get('/', (req, res) => {
-  res.json({ message: `Welcome api TODO CHILO` });
+  res.json({ message: `Welcome LTG` });
 });
 
 require("./src/routes/clientes.routes")(app);

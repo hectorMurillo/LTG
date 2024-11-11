@@ -169,7 +169,7 @@ exports.reportPdf = (req,res)=>{
       let datos_cotizacion = [];
       datos_cotizacion= data;
 
-      console.log(datos_cotizacion);
+      console.log("datos ",datos_cotizacion);
      
 
       return ejs.renderFile(path.join(__dirname,'../../template/', "report-template.ejs"),{datos: datos_cotizacion},(err, result) => {

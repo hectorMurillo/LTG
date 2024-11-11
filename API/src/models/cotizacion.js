@@ -144,38 +144,39 @@ Cotizacion.getAll = result => {
 
 Cotizacion.getPdf =  (ventaId,result) => {
 
-    var sqlQuery = `SELECT ${table}.*, 
-    concat(clientes.nombre,' ',clientes.apellidoP,' ',clientes.apellidoS)as nombre,
-    concat(clientes.colonia,', ',clientes.calle,', ', clientes.numExterior,', ',clientes.ciudad,', ',clientes.estado,'.')as direccion,
-    clientes.email,
-    usuarios.nombre as vendedor,
-    usuarios.email as emailVendedor,
-    detalleVenta.*,
-    CONCAT('$ ', FORMAT((detalleVenta.precio*detalleVenta.cantidad), 2))as totalProductos,
-    CONCAT('$ ', FORMAT((venta.totalPagar), 2))as subTotal,
-    CONCAT('$ ', FORMAT(venta.totalPagar-(venta.totalPagar/1.16),2))as iva,
-    CONCAT('$ ', FORMAT(venta.totalPagar+(venta.totalPagar-(venta.totalPagar/1.16)),2)) as total
-    FROM ${table} 
-    INNER JOIN detalleVenta on detalleVenta.idVenta = ${table}.id
-    INNER JOIN clientes on clientes.id = ${table}.idCliente
-    INNER JOIN usuarios on usuarios.id = ${table}.idUsuario
-    WHERE ${table}.id = ${ventaId} and ${table}.status ='COTIZACION'`;
+    // var sqlQuery = `SELECT ${table}.*, 
+    // concat(clientes.nombre,' ',clientes.apellidoP,' ',clientes.apellidoS)as nombre,
+    // concat(clientes.colonia,', ',clientes.calle,', ', clientes.numExterior,', ',clientes.ciudad,', ',clientes.estado,'.')as direccion,
+    // clientes.email,
+    // usuarios.nombre as vendedor,
+    // usuarios.email as emailVendedor,
+    // detalleVenta.*,
+    // CONCAT('$ ', FORMAT((detalleVenta.precio*detalleVenta.cantidad), 2))as totalProductos,
+    // CONCAT('$ ', FORMAT((venta.totalPagar), 2))as subTotal,
+    // CONCAT('$ ', FORMAT(venta.totalPagar-(venta.totalPagar/1.16),2))as iva,
+    // CONCAT('$ ', FORMAT(venta.totalPagar+(venta.totalPagar-(venta.totalPagar/1.16)),2)) as total
+    // FROM ${table} 
+    // INNER JOIN detalleVenta on detalleVenta.idVenta = ${table}.id
+    // INNER JOIN clientes on clientes.id = ${table}.idCliente
+    // INNER JOIN usuarios on usuarios.id = ${table}.idUsuario
+    // WHERE ${table}.id = ${ventaId} and ${table}.status ='COTIZACION'`;
     
-        sql.query(sqlQuery, (err, res, fields) => {
-            if (err) {
-                console.log(err);
-                result(err, null);
-                return;
-            }
+    //     sql.query(sqlQuery, (err, res, fields) => {
+    //         if (err) {
+    //             console.log(err);
+    //             result(err, null);
+    //             return;
+    //         }
 
-            if (res.length) {
-                result(null, res);
-                return;
-            }
+    //         if (res.length) {
+    //             result(null, res);
+    //             return;
+    //         }
 
-            // not found Customer with the id
-            result({ kind: "not_found" }, null);
-        });
+    //         // not found Customer with the id
+    //         result({ kind: "not_found" }, null);
+    //     });
+        result(null,'aaaaaaa')
 };
 
 Cotizacion.getCotizacionCliente = (cliente, result) => {
