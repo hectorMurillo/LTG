@@ -142,8 +142,22 @@ Cotizacion.getAll = result => {
     });
 };
 
-Cotizacion.getPdf =  (ventaId,result) => {
+Cotizacion.getPdf =  (ventaId = 0,result) => {
 
+    var sqlQuery = `CALL ProcConsultarConvenios(${ventaId})`
+    sql.query(sqlQuery,(err,res,fields)=>{
+        if(err){
+            console.err(err);
+            result(err,null);
+            return;
+        }else{
+            result(null, res);
+            return;
+        }
+        result({ kind: "not_found" }, null);
+    });
+
+    //#region 
     // var sqlQuery = `SELECT ${table}.*, 
     // concat(clientes.nombre,' ',clientes.apellidoP,' ',clientes.apellidoS)as nombre,
     // concat(clientes.colonia,', ',clientes.calle,', ', clientes.numExterior,', ',clientes.ciudad,', ',clientes.estado,'.')as direccion,
@@ -160,7 +174,8 @@ Cotizacion.getPdf =  (ventaId,result) => {
     // INNER JOIN clientes on clientes.id = ${table}.idCliente
     // INNER JOIN usuarios on usuarios.id = ${table}.idUsuario
     // WHERE ${table}.id = ${ventaId} and ${table}.status ='COTIZACION'`;
-    
+    //#endregion
+    //#region 
     //     sql.query(sqlQuery, (err, res, fields) => {
     //         if (err) {
     //             console.log(err);
@@ -176,7 +191,9 @@ Cotizacion.getPdf =  (ventaId,result) => {
     //         // not found Customer with the id
     //         result({ kind: "not_found" }, null);
     //     });
-        result(null,'aaaaaaa')
+
+    //#endregion
+        // result(null,'aaaaaaa')
 };
 
 Cotizacion.getCotizacionCliente = (cliente, result) => {
