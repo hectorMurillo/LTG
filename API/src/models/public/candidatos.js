@@ -58,7 +58,7 @@ Candidato.create = (newCandidatos, result) => {
 }
 
 Candidato.getAll = result => {
-    sql.query(`CALL ProcConsultarConvenios()`, (err, res) => {
+    sql.query(`CALL ProcConsultarConvenios(0)`, (err, res) => {
         if (err) {
             result(null,
                 {
