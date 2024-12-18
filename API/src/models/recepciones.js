@@ -19,6 +19,7 @@ const Recepciones = function (recepcion) {
     this.costoMadera = recepcion.costoMadera;
     this.costoFlete = recepcion.costoFlete;
     this.costoDescarga = recepcion.costoDescarga;
+    this.estatusPago = recepcion.estatusPago;
 }
 
 Recepciones.getAll = result => {
@@ -37,7 +38,7 @@ Recepciones.getAll = result => {
 
 
 Recepciones.create = (newRecepcion, result) => {
-    let sp = 'CALL ProcAgregaActualizaRecepcion(?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
+    let sp = 'CALL ProcAgregaActualizaRecepcion02(?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
     let params = [
         newRecepcion.idRecepcion,
         newRecepcion.folio_carta,
