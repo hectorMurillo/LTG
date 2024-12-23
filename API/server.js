@@ -33,13 +33,15 @@ http.createServer(options,app).listen(port,()=>{
 
 //simple route
 app.get('/', (req, res) => {
-  res.json({ message: `Welcome LTG` });
+  res.json({ message: `Welcome LTG 1` });
 });
 
 require("./src/routes/clientes.routes")(app);
 require("./src/routes/login.routes")(app);
 require("./src/routes/ventas.routes")(app);
 require("./src/routes/inventario.routes")(app);
+require("./src/routes/inventarios.routes")(app);
+require("./src/routes/colaboradores.routes")(app);
 require("./src/routes/productos.routes")(app);
 require("./src/routes/cotizacion.routes")(app);
 require("./src/routes/etiquetas.routes")(app);
