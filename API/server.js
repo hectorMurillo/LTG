@@ -6,7 +6,7 @@ const http = require('http');
 const port = 3000;
 const app = express();
 
-
+app.use('/.well-known/acme-challenge', express.static(__dirname + '/.well-known/acme-challenge'));
 // public static string ConexionPrincipal => @"Data Source = SQL5054.site4now.net; Initial Catalog = db_a55757_todochilo; User Id = db_a55757_todochilo_admin; Passwor>
 
 // Enable cors
