@@ -32,39 +32,45 @@ Inventarios.getUltimosLotes = result => {
 }
 
 
-// Recepciones.create = (newRecepcion, result) => {
-//     let sp = 'CALL ProcAgregaActualizaRecepcion02(?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
-//     let params = [
-//         newRecepcion.idRecepcion,
-//         newRecepcion.folio_carta,
-//         newRecepcion.fechaRecepcion,
-//         newRecepcion.FECHAFIN,
-        
-// OBSERVACION         newRecepcion.subtotal,
-//         ELABORADOS.costoMadera,
-//         PORELABORAR.costoFlete,
-//         ULTFECHAACTUALIZACION.costoDescarga,
+Inventarios.findConteosByFecha = (fechaIncio,fechaFin,result) => {
+    sql.query(`CALL ProcConsultarConteosXFechas('${fechaIncio}','${fechaFin}')`, (err, res) => {
+        if (err) {
+            result(null,
+                {
+                    "codigoerror": err.code,
+                    "data": []
+                });
+            return;
+        }
+        result(null, res);
+    });
+}
 
-//         newRecepcion.cantCabezales,
-//         newRecepcion.cantidadTabletas,
-//         newRecepcion.numCajas,
-//         1
-//     ];
-//     sql.query(sp, params, (err, res) => {
-//         let info = null;
-//         if (err) {
-//             console.log("error: ", err);
-//             result(err, null);
-//             info = err;
-//             return;
-//         } else {
-//             info = { "resultado": res };
-//             //Si es inscripción correcta se manda correo
-//             // res[0][0].pResultado ? sendMail() : 0;
-//         }
-//         result(null, info);
-//     });
-// }
+
+Inventarios.guardarConteoXColaborador = (newConteo, result) => {
+    let sp = 'CALL ProcAgregaActualizaConteos02(?,?,?,?,?,?,@pResultado,@pMsg);';
+    let params = [
+        newConteo.idConteoDiarioEnc,
+        newConteo.idConteoDiarioDet,
+        newConteo.fechaCreate,
+        newConteo.identificadorDiario,
+        newConteo.idUsuarioRegistra,
+        newConteo.cantidad
+    ];
+    sql.query(sp, params, (err, res) => {
+        let info = null;
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            info = err;
+            return;
+        } else {
+            info = { "resultado": res };
+            console.log(info);
+        }
+        result(null, info);
+    });
+}
 
 
 module.exports = Inventarios;

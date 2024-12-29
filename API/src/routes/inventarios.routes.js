@@ -4,7 +4,10 @@ module.exports = app => {
 
     app.get(`${path}/listarUltimoLotesRecibidos`, invetarios.listarUltimosLotes);
 
-    // app.post(`${path}/agregar/:idRecepcion`, invetarios.agregar);
+    app.get(`${path}/listarConteosXFechas/:fechaInicio/:fechaFin`,invetarios.listarCoteosXFechas)
+
+    app.post(`${path}/agregarConteo`, invetarios.guardarConteos);
+
 
     // app.get(`${path}/imagen/:nombreImagen`, recepciones.obtenerImagen)
 

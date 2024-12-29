@@ -17,7 +17,7 @@ Colaboradores.getColaboradores = result => {
                 {
                     "codigoerror": err.code,
                     "data": []
-                });
+                }); 
             return;
         }
         result(null, res);
