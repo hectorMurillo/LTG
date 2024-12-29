@@ -3,7 +3,7 @@ const bodyParse = require('body-parser');
 const cors = require('cors')
 //CAMBIAR A HTTPS CUANDO SEA PRODUCTIVO
 const http = require('http');
-const port = 80;
+const port = 3000;
 const app = express();
 
 
