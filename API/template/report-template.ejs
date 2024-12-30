@@ -1,302 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Ecapro</title>
-    <style type="text/css">
-      @font-face {
-        font-family: SourceSansPro;
-        src: url(SourceSansPro-Regular.ttf);
-      }
+<h2>SEGUROS LTG</h2>
+<h3>PONEMOS A SU DISPOSICIÓN LA SIGUIENTE COTIZACIÓN.</h3>
+<p>CLIENTE: &nbsp;&nbsp;<%= datos.nombreContrante %>
+</p>
+<p>CONCEPTO:</p>
+<table border="1">
+  <tr>
+    <td>ORIGEN</td>
+    <td>DESTINO</td>
+    <td>TIPO DE TRANSPORTE</td>
+    <td>VALOR DE MERCANCIA ASEGURADA</td>
+    <td>PRODUCTO</td>
+  </tr>
+  <tr>
+    <td><%= datos.ciudadOrigen %>&nbsp;&nbsp;<%= datos.estadoOrigen %></td>
+    <td>IZTAPALAPA CIUDAD DE MEXICO</td>
+    <td>CAJA SECA</td>
+    <td>$600,000</td>
+    <td><%= datos.tipoMercancia %></td>
+  </tr>
+</table>
 
-      .clearfix:after {
-        content: "";
-        display: table;
-        clear: both;
-      }
+<h3>
+  SON: (SEISCIENTOS MIL PESOS M.N.)
+</h3>
+<h3>
+  -Precio más IVA. 
+  -Esperando contar con su amable preferencia, quedo a sus órdenes. ATENTAMENTE
+</h3>
 
-      a {
-        color: #212529!important;
-        text-decoration: none;
-      }
-
-      body {
-        position: relative;
-        width: 21cm;  
-        height: 29.7cm; 
-        margin: 0 auto; 
-        color: #555555;
-        background: #FFFFFF; 
-        font-family: Arial, sans-serif; 
-        font-size: 14px; 
-        font-family: SourceSansPro;
-      }
-
-      header {
-        padding: 10px 0;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #AAAAAA;
-      }
-
-      #logo {
-        float: left;
-        margin-top: 8px;
-      }
-
-      #logo img {
-        height: 70px;
-      }
-
-      #company {
-        float: right;
-        text-align: right;
-      }
-
-
-      #details {
-        margin-bottom: 50px;
-      }
-
-      #client {
-        padding-left: 6px;
-        border-left: 6px solid #212529!important;
-        float: left;
-      }
-
-      #client .to {
-        color: #777777;
-      }
-
-      h2.name {
-        font-size: 1.4em;
-        font-weight: normal;
-        margin: 0;
-      }
-
-      #invoice {
-        float: right;
-        text-align: right;
-      }
-
-      #invoice h1 {
-        color: #212529!important;
-        font-size: 2.4em;
-        line-height: 1em;
-        font-weight: normal;
-        margin: 0  0 10px 0;
-      }
-
-      #invoice .date {
-        font-size: 1.1em;
-        color: #777777;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 20px;
-      }
-
-      table th,
-      table td {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 6px;
-        padding-right: 5px;
-        background: #EEEEEE;
-        text-align: center;
-        border-bottom: 1px solid #FFFFFF;
-      }
-
-      table th {
-        white-space: nowrap;        
-        font-weight: normal;
-      }
-
-      table td {
-        text-align: right;
-      }
-
-      table td h3{
-        color: #57B223;
-        font-size: 1.0em;
-        font-weight: normal;
-        margin: 0 0 0.2em 0;
-      }
-
-      table .no {
-        color: #FFFFFF;
-        font-size: 1.0em;
-        background: linear-gradient(85deg,#430001,#ad0d20)!important;
-      }
-
-      table .desc {
-        text-align: left;
-
-      }
-
-      table .total {
-        background: #212529!important;
-        color: #FFFFFF;
-      }
-
-      table td.unit,
-      table td.qty,
-      table td.total {
-        font-size: 1.0em;
-      }
-
-      table tbody tr:last-child td {
-        border: none;
-      }
-
-      table tfoot td {
-        padding: 10px 20px;
-        background: #FFFFFF;
-        border-bottom: none;
-        font-size: 1.0em;
-        white-space: nowrap; 
-        border-top: 1px solid #AAAAAA; 
-      }
-
-      table tfoot tr:first-child td {
-        border-top: none; 
-      }
-
-      table tfoot tr:last-child td {
-        color: #57B223;
-        font-size: 1.0em;
-        border-top: 1px solid #57B223; 
-
-      }
-
-      table tfoot tr td:first-child {
-        border: none;
-      }
-
-      #thanks{
-        font-size: 1em;
-        margin-bottom: 50px;
-      }
-
-      #notices{
-        padding-left: 6px;
-        border-left: 6px solid #212529!important;  
-      }
-
-      #notices .notice {
-        font-size: 1.2em;
-      }
-
-      footer {
-        color: #777777;
-        width: 100%;
-        height: 30px;
-        position: absolute;
-        bottom: 0;
-        border-top: 1px solid #AAAAAA;
-        padding: 8px 0;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="clearfix">
-      <div id="logo">
-        <img src="logo.png">
-      </div>
-      <div id="company">
-        <h2 class="name">ECAPRO</h2>
-        <div>Ignacio Ramirez 163 Colonia Miguel Aleman Culiacan, Sinaloa CP-80200</div>
-        <div>6671645554</div>
-        <div><a href="mailto:ecaprovantes@gmail.com">ecaprovantes@gmail.com</a></div>
-      </div>
-      
-    </header>
-    <main role='main'>
-      <div id="details" class="clearfix">
-        <div id="client">
-          <div class="to">COTIZACIÓN PARA:</div>
-          <% if (datos.length > 0) { %>
-            <h2 class="name"> <%= datos[0].nombre %></h2>
-            <div class="address"> <%= datos[0].direccion %></div>
-            <div class="email"><a href="#"> <%= datos[0].email %></a></div>
-          <% }%>
-         
-        </div>
-        <div id="invoice">
-          <h1>DATOS VENTA: </h1>
-          <% if (datos.length > 0) { %>
-            <div class="date">VENDEDOR: <%= datos[0].vendedor %></div>
-            <div class="date">EMAIL: <%= datos[0].emailVendedor %></div>
-          <% }%>
-        </div>
-      </div>
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th class="no">CODIGO</th>
-            <th class="desc">DESCRIPCIÓN PRODUCTO</th>
-            <th class="unit">PRECIO UNITARIO</th>
-            <th class="qty">CANTIDAD</th>
-            <th class="total">TOTAL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if (datos.length > 0) { %>
-            <% datos.forEach(student => {%>
-              <tr>
-                <td class="no"><%= student.name %></td>
-                <td class="desc"><h3><%= student.productoNombre %></h3></td>
-                <td class="unit">$ <%= student.precio %></td>
-                <td class="qty"><%= student.cantidad %></td>
-                <td class="total"><%= student.totalProductos %></td>
-              </tr>
-           <%  });%>
-          <% }%>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">SUBTOTAL</td>
-            <% if (datos.length > 0) { %>
-            <td><%= datos[0].subTotal %></td>
-            <% } %>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">IVA</td>
-            <% if (datos.length > 0) { %>
-              <td><%= datos[0].iva %></td>
-            <% } %>
-          </tr>
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="2">TOTAL</td>
-            <% if (datos.length > 0) { %>
-              <td><%= datos[0].total %></td>
-            <% } %>
-          </tr>
-        </tfoot>
-      </table>
-      <div id="thanks">
-        <img src="logo.png" style="width: 150px;">
-        <div id="company">
-          <h2 class="name">DATOS CUENTA BANCARIA PARA DEPOSITOS O TRASFERENCIAS</h2>
-          <div>Núm. cuenta: </div>
-          <div>CLABE Interbancaria: </div>
-          <div>Institución Bancaria: </div>
-          <div>Titular: </div>
-        </div>
-      </div>
-      <div id="notices">
-        <div>NOTAS:</div>
-        <div class="notice">Esta cotización, esta sujeta a cambios de precio despues de la fecha de vencimiento por motivos externos a nosotros, como lo son valor de las monedas, inventario disponible, o cambio de precio de nuestro proveedor sin previo aviso.</div>
-      </div>
-    </main>
-    <footer>
-      Este documento es una representación grafica de una cotización electrónica
-    </footer>
-  </body>
+<br><br><br><br><br><br><br><br>
+_____________________________ 
+<br>RAFAEL MONTOYA LÓPEZ <br>
+REPRESENTANTE LEGAL DE SEGUROS LTG CARGA DE LOS MOCHIS S.A. 
+<br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
 </html>
+<%- include('report-2-template.ejs') -%>
