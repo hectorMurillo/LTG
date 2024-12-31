@@ -142,9 +142,9 @@ Cotizacion.getAll = result => {
     });
 };
 
-Cotizacion.getPdf =  (ventaId = 0,result) => {
+Cotizacion.getPdf =  (recepcionId = 0,result) => {
 
-    var sqlQuery = `CALL ProcConsultarConvenios(${ventaId})`
+    var sqlQuery = `CALL ProcConsultarRecepciones(${recepcionId})`
     sql.query(sqlQuery,(err,res,fields)=>{
         if(err){
             console.err(err);
@@ -154,7 +154,6 @@ Cotizacion.getPdf =  (ventaId = 0,result) => {
             result(null, res);
             return;
         }
-        result({ kind: "not_found" }, null);
     });
 
     //#region 

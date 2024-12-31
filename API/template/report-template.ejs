@@ -1,39 +1,64 @@
 <!DOCTYPE html>
-<h2>SEGUROS LTG</h2>
-<h3>PONEMOS A SU DISPOSICIÓN LA SIGUIENTE COTIZACIÓN.</h3>
-<p>CLIENTE: &nbsp;&nbsp;<%= datos.nombreContrante %>
-</p>
+<h2>DISTRIBUIDORA LTG</h2>
+<h3>COSTO PRIMER CARGA DE MADERA.</h3>
+<!-- <p>CLIENTE: &nbsp;&nbsp;<%= datos.nombreContrante %> -->
+<!-- </p> -->
 <p>CONCEPTO:</p>
 <table border="1">
   <tr>
-    <td>ORIGEN</td>
+    <!-- <td>ORIGEN</td>
     <td>DESTINO</td>
     <td>TIPO DE TRANSPORTE</td>
     <td>VALOR DE MERCANCIA ASEGURADA</td>
-    <td>PRODUCTO</td>
+    <td>PRODUCTO</td> -->
+    <td>costo total de la madera</td>
   </tr>
   <tr>
-    <td><%= datos.ciudadOrigen %>&nbsp;&nbsp;<%= datos.estadoOrigen %></td>
+    <td>COSTO DE MADERA</td>
+    <td>
+      <%= datos.costoMadera %>
+    </td>
+    <!-- <td><%= datos.ciudadOrigen %>&nbsp;&nbsp;<%= datos.estadoOrigen %></td>
     <td>IZTAPALAPA CIUDAD DE MEXICO</td>
     <td>CAJA SECA</td>
     <td>$600,000</td>
-    <td><%= datos.tipoMercancia %></td>
+    <td><%= datos.tipoMercancia %></td> -->
   </tr>
+  <tr>
+    <td>Flete</td>
+    <td>
+      <%= datos.costoFlete %>
+    </td>
+  </tr>
+  <tr>
+    <td>Descarga</td>
+    <td>
+      <%= datos.costoDescarga %>
+    </td>
+  </tr>
+  <tr>
+    <td>Total</td>
+    <td>
+      <%= datos.subtotal %>
+    </td>
+  </tr>
+  
 </table>
 
 <h3>
-  SON: (SEISCIENTOS MIL PESOS M.N.)
+  SON: (TANTOS MIL PESOS M.N.)
 </h3>
 <h3>
-  -Precio más IVA. 
+  -Precio más IVA.
   -Esperando contar con su amable preferencia, quedo a sus órdenes. ATENTAMENTE
 </h3>
 
 <br><br><br><br><br><br><br><br>
-_____________________________ 
+<!-- _____________________________ 
 <br>RAFAEL MONTOYA LÓPEZ <br>
-REPRESENTANTE LEGAL DE SEGUROS LTG CARGA DE LOS MOCHIS S.A. 
+REPRESENTANTE LEGAL DE SEGUROS LTG CARGA DE LOS MOCHIS S.A.  -->
 <br><br><br><br><br><br><br><br>
 <br><br><br><br><br>
+
 </html>
-<%- include('report-2-template.ejs') -%>
+<!-- <%- include('report-2-template.ejs') -%> -->
