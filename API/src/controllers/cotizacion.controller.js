@@ -2,6 +2,7 @@ const DetalleVentas = require("../models/detalleVentas");
 const Ventas = require("../models/cotizacion");
 const Clientes = require("../models/clientes");
 const Cuentas = require("../models/cuentasBancarias");
+const fs = require('fs');
 
 const pdf = require('html-pdf');
 let ejs = require("ejs");
@@ -166,11 +167,11 @@ exports.reportPdf = (req, res) => {
         message: err
       });
     } else {
-      let datos_cotizacion = [];
-      datos_cotizacion = data[0][0];
-      console.log("datos ",datos_cotizacion);
+      let datos_recepcion = [];
+      datos_recepcion = data[0][0];
+      console.log("datos ",datos_recepcion);
 
-      return ejs.renderFile(path.join(__dirname, '../../template/', "report-template.ejs"), { datos: datos_cotizacion }, (err, result) => {
+      return ejs.renderFile(path.join(__dirname, '../../template/', "report-template.ejs"), { datos: datos_recepcion }, (err, result) => {
         if (err) {
           res.send(err);
         } else {
@@ -184,13 +185,18 @@ exports.reportPdf = (req, res) => {
               "height": "20mm",
             },
           };
-          pdf.create(result, options).toFile("../cotizaciones/cotizacion.pdf", function (err, data) {
-            if (err) {
-              res.send(err);
-            } else {
-              res.send(data);
-            }
-          });
+          pdf.create(result, options).toFile("../cotizaciones/cotizacion.pdf", function (err, data, callback) {
+              let resp = "";
+              if (err) return callback(err);
+        
+              fs.readFile("../cotizaciones/cotizacion.pdf", (err, content) => {
+                if (err) return callback(err);
+        
+                const base64Pdf = content.toString('base64');
+                resp = base64Pdf;
+                res.send(resp);
+              });
+            });
         }
       });
     }
