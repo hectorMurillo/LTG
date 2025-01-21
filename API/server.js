@@ -12,7 +12,7 @@ app.use('/.well-known/acme-challenge', express.static(__dirname + '/.well-known/
 
 // Enable cors
 app.use(cors({
-  origin: 'https://hectormurillo.github.io' // Allow requests from your origin
+  origin: 'https://hectormurillo.github.io/LTG-BUILD' // Allow requests from your origin
 }));
 
 
