@@ -3,5 +3,5 @@ module.exports = app => {
     const path="/menu";
 
     app.get(`${path}/listar/:idUsuario`, menu.listarMenu);
-
+    app.get(`${path}/verificaProductivo`, menu.verificaProductivo)
 };

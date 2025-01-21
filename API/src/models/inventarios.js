@@ -48,11 +48,11 @@ Inventarios.findConteosByFecha = (fechaIncio,fechaFin,result) => {
 
 
 Inventarios.guardarConteoXColaborador = (newConteo, result) => {
-    let sp = 'CALL ProcAgregaActualizaConteos02(?,?,?,?,?,?,@pResultado,@pMsg);';
+    let sp = 'CALL ProcAgregaActualizaConteos04(?,?,?,?,?,?,@pResultado,@pMsg);';
     let params = [
-        newConteo.idConteoDiarioEnc,
-        newConteo.idConteoDiarioDet,
-        newConteo.fechaCreate,
+        newConteo.idConteoDiarioEnc == undefined ? null : newConteo.idConteoDiarioEnc,
+        newConteo.idConteoDiarioDet == undefined ? null : newConteo.idConteoDiarioDet,
+        newConteo.fechaCreate == undefined ? '1900-01-01' : newConteo.fechaCreate,
         newConteo.identificadorDiario,
         newConteo.idUsuarioRegistra,
         newConteo.cantidad

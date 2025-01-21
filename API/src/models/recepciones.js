@@ -20,10 +20,13 @@ const Recepciones = function (recepcion) {
     this.costoFlete = recepcion.costoFlete;
     this.costoDescarga = recepcion.costoDescarga;
     this.estatusPago = recepcion.estatusPago;
+    this.tipoLote = recepcion.tipoLote;
+    this.idCajeroExterno = recepcion.idCajeroExterno;
+    this.idClienteExterno = recepcion.idClienteExterno;
 }
 
 Recepciones.getAll = result => {
-    sql.query(`CALL ProcConsultarRecepciones(0)`, (err, res) => {
+    sql.query(`CALL ProcConsultarRecepciones02(0)`, (err, res) => {
         if (err) {
             result(null,
                 {
@@ -38,7 +41,7 @@ Recepciones.getAll = result => {
 
 
 Recepciones.create = (newRecepcion, result) => {
-    let sp = 'CALL ProcAgregaActualizaRecepcion02(?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
+    let sp = 'CALL ProcAgregaActualizaRecepcion03(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
     let params = [
         newRecepcion.idRecepcion,
         newRecepcion.folio_carta,
@@ -53,7 +56,11 @@ Recepciones.create = (newRecepcion, result) => {
         newRecepcion.cantCabezales,
         newRecepcion.cantidadTabletas,
         newRecepcion.numCajas,
-        1
+        1,
+        newRecepcion.tipoLote,
+        newRecepcion.costoXCaja,
+        newRecepcion.idCajeroExterno,
+        newRecepcion.idClienteExterno
     ];
     sql.query(sp, params, (err, res) => {
         let info = null;
@@ -73,4 +80,7 @@ Recepciones.create = (newRecepcion, result) => {
 
 
 module.exports = Recepciones;
+
+
+
 

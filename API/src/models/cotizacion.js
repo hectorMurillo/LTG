@@ -144,7 +144,7 @@ Cotizacion.getAll = result => {
 
 Cotizacion.getPdf =  (recepcionId = 0,result) => {
 
-    var sqlQuery = `CALL ProcConsultarRecepciones(${recepcionId})`
+    var sqlQuery = `CALL ProcConsultarRecepciones02(${recepcionId})`
     sql.query(sqlQuery,(err,res,fields)=>{
         if(err){
             console.err(err);

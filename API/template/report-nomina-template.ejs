@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recibo de Nómina</title>
+  <style>
+    /* Aquí puedes agregar tus estilos CSS para personalizar el aspecto del recibo */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    /* Agrega más estilos según tus necesidades */
+  </style>
+</head>
+<body>
+  <img src="https://hectormurillo.github.io/LTG-BUILD/img/logo.1ad640bf.png" alt="logo.png" width="100">
+  <h2>Recibo de Nómina</h2>
+  <p><strong>Empresa:</strong> COMERCIALIZADORA LTG</p>
+  <p><strong>Dirección:</strong> CARRETERA MEXICO 15 LATERAL #18</p>
+  <p><strong>Fecha:</strong> <%= fecha.toLocaleDateString() %></p>
+  <p><strong>Periodo:</strong> De <%= fechaInicio %> al <%= fechaFin %> </p>
+
+
+  <h3>Empleado</h3>
+  <p><strong>Nombre:</strong> <%= datos.alias %></p>
+  <p><strong>Cargo:</strong> Armador</p>
+  <p><strong>Valor de la caja:</strong>$ 2.70</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="background-color: red; color: white;">Cantidad</th>
+        <th style="background-color: red; color: white;">Descripción</th>
+        <th style="background-color: red; color: white;">Monto</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%= datos.cantTotalPorPeriodo %></td>
+          <td>Cajas armadas</td>
+          <td>$<%= datos.totalAPagar %></td>
+        </tr>
+    </tbody>
+  </table>
+  <p><%= datos.CantCajasAPagar %></p>
+
+  <h3>Totales</h3>
+  <p><strong>Total salario:</strong> $<%= datos.totalAPagar %></p>
+  <p><strong>Total descuento:</strong> $<%= datos.monto_descuento %></p>
+  <p><strong>Total percibido:</strong> $<%= datos.totalConDescuento %></p>
+  <br>
+  <h3><strong>Firma empleado:</strong></h3>
+  <h1>_____________________________</h1>
+  <p><%= datos.alias %></p>
+</body>
+</html>
