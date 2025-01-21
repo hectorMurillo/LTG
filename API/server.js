@@ -11,7 +11,9 @@ app.use('/.well-known/acme-challenge', express.static(__dirname + '/.well-known/
 // public static string ConexionPrincipal => @"Data Source = SQL5054.site4now.net; Initial Catalog = db_a55757_todochilo; User Id = db_a55757_todochilo_admin; Passwor>
 
 // Enable cors
-app.use(cors());
+app.use(cors({
+  origin: 'https://hectormurillo.github.io' // Allow requests from your origin
+}));
 
 
 //parse rquest of content-type: aplication-json
