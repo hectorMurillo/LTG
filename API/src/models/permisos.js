@@ -30,8 +30,8 @@ Menu.findByUser = (idUsuario, result) => {
 }
 
 Menu.esProductivo = (result) => {
-    sql.query(` SELECT configuracionGeneral.estatus 
-                FROM configuracionGeneral
+    sql.query(` SELECT estatus 
+                FROM configuraciongeneral
                 LIMIT 1 `, (err, res) => {
         if (err) {
             console.log("error ", err);
