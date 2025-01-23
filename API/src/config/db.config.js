@@ -27,7 +27,7 @@
 
 module.exports = {
     HOST: `srv639121.hstgr.cloud`,
-    USER: `a55757_ltgdev`,
+    USER: `ltgUser`,
     PASSWORD: `_3L3t3G3_`,
     DB: `db_a55757_ltgdev`,
     AUTH: false
