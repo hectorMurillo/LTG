@@ -17,10 +17,21 @@
 // }
 
 // BD-LGT DEV
+// module.exports = {
+//     HOST: `mysql5050.site4now.net`,
+//     USER: `a55757_ltgdev`,
+//     PASSWORD: `_3L3T3G3_DEV`,
+//     DB: `db_a55757_ltgdev`,
+//     AUTH: false
+// }
+
 module.exports = {
-    HOST: `mysql5050.site4now.net`,
+    HOST: `srv639121.hstgr.cloud`,
     USER: `a55757_ltgdev`,
-    PASSWORD: `_3L3T3G3_DEV`,
+    PASSWORD: `_3L3t3G3_`,
     DB: `db_a55757_ltgdev`,
     AUTH: false
 }
+
+
+// CREATE USER 'ltgUser'@'%' IDENTIFIED BY '_3L3t3G3_';  db_a55757_ltgdev
