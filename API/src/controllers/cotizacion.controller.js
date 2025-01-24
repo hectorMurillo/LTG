@@ -185,18 +185,26 @@ exports.reportPdf = (req, res) => {
               "height": "20mm",
             },
           };
-          pdf.create(result, options).toFile("../cotizaciones/cotizacion.pdf", function (err, data, callback) {
-              let resp = "";
-              if (err) return callback(err);
-        
-              fs.readFile("../cotizaciones/cotizacion.pdf", (err, content) => {
-                if (err) return callback(err);
-        
-                const base64Pdf = content.toString('base64');
-                resp = base64Pdf;
-                res.send(resp);
-              });
+          pdf.create(result, options).toFile("../cotizaciones/cotizacion.pdf", (err) => {
+            if (err) {
+              console.error("Error creating PDF:", err);
+              // Handle the error appropriately, e.g., send an error response
+              res.status(500).send("Error creating PDF"); 
+              return; 
+            }
+          
+            fs.readFile("../cotizaciones/cotizacion.pdf", (err, content) => {
+              if (err) {
+                console.error("Error reading PDF:", err);
+                // Handle the error appropriately
+                res.status(500).send("Error reading PDF"); 
+                return; 
+              }
+          
+              const base64Pdf = content.toString('base64');
+              res.send(base64Pdf); 
             });
+          });
         }
       });
     }
