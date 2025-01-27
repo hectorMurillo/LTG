@@ -1,7 +1,9 @@
-const {colaboradores, ControlNomina} = require("../models/colaboradores");
+const { colaboradores, ControlNomina } = require("../models/colaboradores");
 const fs = require('fs');
 
-const pdf = require('html-pdf');
+const pdf = require('puppeteer');
+
+// const pdf = require('html-pdf');
 let ejs = require("ejs");
 let path = require("path");
 
@@ -85,7 +87,7 @@ exports.registraNomina = (req, res) => {
                 message:
                     err.message || "Algo ocurrió en guardarControlNomina"
             });
-        else{
+        else {
             res.send(data);
         }
     })
@@ -109,49 +111,99 @@ exports.cantidadTotalesXColaborador = (req, res) => {
 
 }
 
-exports.reportNominaPdf = (req, res) => {
+// exports.reportNominaPdf = (req, res) => {
+//     var fechaInicio = req.params.fechaInicio;
+//     var fechaFin = req.params.fechaFin;
+//     var codColaborador = req.params.codColaborador;
+//     colaboradores.getNominaPdf(fechaInicio, fechaFin, codColaborador, (err, data) => {
+//         if (err) {
+//             res.status(500).send({
+//                 message: err
+//             });
+//         } else {
+//             let datosNomina = [];
+//             datosNomina = data[0][0];
+//             console.log("datos ", datosNomina);
+//             const fechaActual = new Date();
+//             return ejs.renderFile(path.join(__dirname, '../../template/', "report-nomina-template.ejs"), { datos: datosNomina, fecha: fechaActual, fechaInicio: fechaInicio, fechaFin: fechaFin }, (err, result) => {
+//                 if (err) {
+//                     res.send(err);
+//                 } else {
+//                     let options = {
+//                         "height": "11in",
+//                         "width": "8.5in",
+//                         "header": {
+//                             "height": "20mm"
+//                         },
+//                         "footer": {
+//                             "height": "20mm",
+//                         },
+//                     };
+//                     pdf.create(result, options).toFile("../cotizaciones/nomina.pdf", function (err, data, callback) {
+//                         let resp = "";
+//                         if (err) return callback(err);
+
+//                         fs.readFile("../cotizaciones/nomina.pdf", (err, content) => {
+//                             if (err) return callback(err);
+
+//                             const base64Pdf = content.toString('base64');
+//                             resp = base64Pdf;
+//                             res.send(resp);
+//                         });
+//                     });
+//                 }
+//             });
+//         }
+//     });
+
+// }
+
+
+exports.reportNominaPdf = async (req, res) => {
     var fechaInicio = req.params.fechaInicio;
     var fechaFin = req.params.fechaFin;
     var codColaborador = req.params.codColaborador;
-    colaboradores.getNominaPdf(fechaInicio,fechaFin,codColaborador, (err, data) => {
+    colaboradores.getNominaPdf(fechaInicio, fechaFin, codColaborador, async (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err
             });
         } else {
-            let datosNomina = [];
-            datosNomina = data[0][0];
-            console.log("datos ", datosNomina);
+            let datos_Nomina = [];
+            datos_Nomina = data[0][0];
+            console.log("datos ", datos_Nomina);
+            let pdfBase64 = "";
             const fechaActual = new Date();
-            return ejs.renderFile(path.join(__dirname, '../../template/', "report-nomina-template.ejs"), { datos: datosNomina, fecha: fechaActual, fechaInicio:fechaInicio, fechaFin:fechaFin }, (err, result) => {
+            ejs.renderFile(path.join(__dirname, '../../template/', "report-nomina-template.ejs"), { datos: datos_Nomina }, async (err, result) => {
                 if (err) {
-                    res.send(err);
-                } else {
-                    let options = {
-                        "height": "11in",
-                        "width": "8.5in",
-                        "header": {
-                            "height": "20mm"
-                        },
-                        "footer": {
-                            "height": "20mm",
-                        },
-                    };
-                    pdf.create(result, options).toFile("../cotizaciones/nomina.pdf", function (err, data, callback) {
-                        let resp = "";
-                        if (err) return callback(err);
+                    console.error('Error renderizando la plantilla:', err);
+                    return;
+                }
 
-                        fs.readFile("../cotizaciones/nomina.pdf", (err, content) => {
-                            if (err) return callback(err);
-
-                            const base64Pdf = content.toString('base64');
-                            resp = base64Pdf;
-                            res.send(resp);
-                        });
+                // Iniciar Puppeteer y generar el PDF
+                try {
+                    const browser = await pdf.launch({
+                        headless: true,
+                        args: ['--no-sandbox', '--disable-setuid-sandbox'] // Necesario en entornos sin interfaz gráfica
                     });
+                    const page = await browser.newPage();
+                    await page.setContent(result, { waitUntil: 'networkidle0' });
+
+                    // Generar el PDF
+                    const pdfBuffer = await page.pdf({
+                        path: 'reporteNomina.pdf', // Nombre del archivo PDF
+                        format: 'A4', // Formato de la página
+                        printBackground: true // Incluir fondos
+                    });
+
+                    await browser.close();
+                    pdfBase64 = pdfBuffer.toString('base64');
+                    console.log('PDF generado correctamente: reporte.pdf');
+                    return res.send(pdfBase64);
+                } catch (error) {
+                    console.error('Error generando el PDF:', error);
                 }
             });
         }
-    });
-
+    })
 }
