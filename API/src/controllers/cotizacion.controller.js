@@ -4,7 +4,7 @@ const Clientes = require("../models/clientes");
 const Cuentas = require("../models/cuentasBancarias");
 const fs = require('fs');
 
-const pdf = require('html-pdf');
+const pdf = require('puppeteer');
 let ejs = require("ejs");
 let path = require("path");
 
@@ -159,9 +159,9 @@ exports.busquedaCliente = (req, res) => {
   });
 }
 
-exports.reportPdf = (req, res) => {
+exports.reportPdf = async (req, res) => {
   var id = req.params.convenioId;
-  Ventas.getPdf(id, (err, data) => {
+  Ventas.getPdf(id, async (err, data) => {
     if (err) {
       res.status(500).send({
         message: err
@@ -169,80 +169,73 @@ exports.reportPdf = (req, res) => {
     } else {
       let datos_recepcion = [];
       datos_recepcion = data[0][0];
-      console.log("datos ",datos_recepcion);
-
-      return ejs.renderFile(path.join(__dirname, '../../template/', "report-template.ejs"), { datos: datos_recepcion }, (err, result) => {
+      console.log("datos ", datos_recepcion);
+      let pdfBase64 = "";
+      ejs.renderFile(path.join(__dirname, '../../template/', "report-costoPrimerCarga-template.ejs"), { datos: datos_recepcion }, async (err, result) => {
         if (err) {
-          res.send(err);
-        } else {
-          let options = {
-            "height": "11in",
-            "width": "8.5in",
-            "header": {
-              "height": "20mm"
-            },
-            "footer": {
-              "height": "20mm",
-            },
-          };
-          pdf.create(result, options).toFile("../cotizaciones/cotizacion.pdf", (err) => {
-            if (err) {
-              console.error("Error creating PDF:", err);
-              // Handle the error appropriately, e.g., send an error response
-              res.status(500).send("Error creating PDF"); 
-              return; 
-            }
-          
-            fs.readFile("../cotizaciones/cotizacion.pdf", (err, content) => {
-              if (err) {
-                console.error("Error reading PDF:", err);
-                // Handle the error appropriately
-                res.status(500).send("Error reading PDF"); 
-                return; 
-              }
-          
-              const base64Pdf = content.toString('base64');
-              res.send(base64Pdf); 
-            });
+          console.error('Error renderizando la plantilla:', err);
+          return;
+        }
+
+        // Iniciar Puppeteer y generar el PDF
+        try {
+          const browser = await pdf.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'] // Necesario en entornos sin interfaz gráfica
           });
+          const page = await browser.newPage();
+          await page.setContent(result, { waitUntil: 'networkidle0' });
+
+          // Generar el PDF
+          const pdfBuffer = await page.pdf({
+            path: 'reporte.pdf', // Nombre del archivo PDF
+            format: 'A4', // Formato de la página
+            printBackground: true // Incluir fondos
+          });
+
+          await browser.close();
+          pdfBase64 = pdfBuffer.toString('base64');
+          console.log('PDF generado correctamente: reporte.pdf');
+          return res.send(pdfBase64);
+        } catch (error) {
+          console.error('Error generando el PDF:', error);
         }
       });
     }
-  });
-
+  })
 }
 
-exports.cuentasBancarias = (req, res) => {
-  Cuentas.select((err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error ocurred while retrivieving Cuentas bancarias."
+    exports.cuentasBancarias = (req, res) => {
+      Cuentas.select((err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error ocurred while retrivieving Cuentas bancarias."
+          });
+        else res.send(data);
       });
-    else res.send(data);
-  });
-}
+    }
 
-exports.agregarCuentas = (req, res) => {
-  if (!req.body) {
-    res.status(400).send(
-      { message: "Los datos no pueden venir vacíos" }
-    );
-  }
+    exports.agregarCuentas = (req, res) => {
+      if (!req.body) {
+        res.status(400).send(
+          { message: "Los datos no pueden venir vacíos" }
+        );
+      }
 
-  const cuenta = new Cuentas({
-    numCuenta: req.body.numCuenta,
-    clabe: req.body.clabe,
-    beneficiario: req.body.beneficiario,
-    banco: req.body.banco
-  });
-
-  Cuentas.create(cuenta, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Cuenta Bancaria."
+      const cuenta = new Cuentas({
+        numCuenta: req.body.numCuenta,
+        clabe: req.body.clabe,
+        beneficiario: req.body.beneficiario,
+        banco: req.body.banco
       });
-    else res.send(data);
-  });
-}
+
+      Cuentas.create(cuenta, (err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating the Cuenta Bancaria."
+          });
+        else res.send(data);
+      });
+    }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reporte primer carga de madera</title>
+    <style>
+         /* Estilos para centrar el contenido */
+         body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .contenedor {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto; /* Centra la tabla horizontalmente */
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        footer{
+            flex-shrink: 0; /* Evita que el footer se encoja */
+        }
+
+        .firma {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="pagina">
+
+        <img src="https://hectormurillo.github.io/LTG-BUILD/img/logo.1ad640bf.png" alt="logo.png" width="100">
+        <h2>DISTRIBUIDORA LTG</h2>
+        <p>Carretera Inte. México 15 km. 202.5 Cel:6683222043</p>
+        <h3>COSTO PRIMER CARGA DE MADERA.</h3>
+        <!-- <p>CLIENTE: &nbsp;&nbsp;<%= datos.nombreContrante %> -->
+        <!-- </p> -->
+        <p>CONCEPTO:</p>
+        <table border="1">
+            <tr>
+                <th>costo total de la madera</th>
+                <td>
+                    $ <%= datos.costoMadera %> MXN
+                </td>
+            </tr>
+            <tr>
+                <th>Flete</th>
+                <td>
+                    $ <%= datos.costoFlete %> MXN
+                </td>
+            </tr>
+            <tr>
+                <th>Descarga</th>
+                <td>
+                    $ <%= datos.costoDescarga %> MXN
+                </td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>
+                    $ <%= datos.subtotal %> MXN
+                </td>
+            </tr>
+            
+        </table>
+        
+        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br>
+        <footer> 1/3 </footer>
+    </div>
+    <div class="pagina">
+        <img src="https://hectormurillo.github.io/LTG-BUILD/img/logo.1ad640bf.png" alt="logo.png" width="100">
+        <h2>DISTRIBUIDORA LTG</h2>
+        <p>Carretera Inte. México 15 km. 202.5 Cel:6683222043</p>
+        <h3>COSTO PRIMER CARGA DE MADERA.</h3>
+        <table class="tr">
+            <th>Flete</th>
+            <td><%= datos.costoFlete %></td>
+        </table>
+        <table class="tr">
+            <th>Operador</th>
+            <td><%= datos.aliasProveedor %></td>
+        </table>
+        <table class="tr">
+            <th>Destino (Ruta)</th>
+            <td>Los Mochis</td>
+        </table>
+        <div class="firma">
+            <br>
+            <h1>_____________________________</h1>
+            <p>
+              <%= datos.aliasProveedor %><br>
+              Operador
+            </p>
+            <br>
+            <h1>_____________________________</h1>
+            <p>
+              Distribuidora LTG
+            </p>
+            <br>
+            <h1>_____________________________</h1>
+            <p>
+              Director General
+            </p>
+        </div>
+        <footer>2/3</footer>
+    </div>
+    <div class="pagina">
+        <img src="https://hectormurillo.github.io/LTG-BUILD/img/logo.1ad640bf.png" alt="logo.png" width="100">
+        <h2>DISTRIBUIDORA LTG</h2>
+        <p>Carretera Inte. México 15 km. 202.5 Cel:6683222043</p>
+        <h3>REPORTE DE LA PRIMER CARGA DE MADERA.</h3>
+        <ul>
+            <li><%= datos.cantCabezales %> bultos de cabezales</li>
+            <li><%= datos.cantTabletas %> bultos de tabletas</li>
+        </ul>
+        <!-- <table class="tr">
+            <th>Flete</th>
+            <td><%= datos.costoFlete %></td>
+        </table>
+        <table class="tr">
+            <th>Operador</th>
+            <td><%= datos.aliasProveedor %></td>
+        </table>
+        <table class="tr">
+            <th>Destino (Ruta)</th>
+            <td>Los Mochis</td>
+        </table> -->
+        <footer>3/3</footer>
+    </div>
+</body>
+</html>
