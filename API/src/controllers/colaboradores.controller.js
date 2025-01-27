@@ -174,7 +174,7 @@ exports.reportNominaPdf = async (req, res) => {
             console.log("datos ", datos_Nomina);
             let pdfBase64 = "";
             const fechaActual = new Date();
-            ejs.renderFile(path.join(__dirname, '../../template/', "report-nomina-template.ejs"), { datos: datos_Nomina }, async (err, result) => {
+            ejs.renderFile(path.join(__dirname, '../../template/', "report-nomina-template.ejs"), { datos: datos_Nomina, fecha: fechaActual, fechaInicio: fechaInicio, fechaFin: fechaFin  }, async (err, result) => {
                 if (err) {
                     console.error('Error renderizando la plantilla:', err);
                     return;
