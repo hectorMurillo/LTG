@@ -2,7 +2,9 @@ module.exports = app => {
     const invetarios = require('../controllers/inventarios.controller');
     const path = "/inventarios";
 
-    app.get(`${path}/listarUltimoLotesRecibidos`, invetarios.listarUltimosLotes);
+    app.get(`${path}/listarUltimoLotesRecibidosMP`, invetarios.listarUltimosLotes);
+
+    app.get(`${path}/listarUltimoLotesRecibidosCajas`, invetarios.listarUltimosLotesCajas);
 
     app.get(`${path}/listarConteosXFechas/:fechaInicio/:fechaFin`,invetarios.listarCoteosXFechas)
 

@@ -1,7 +1,7 @@
 const inventarios = require("../models/inventarios");
 
 exports.listarUltimosLotes = (req, res) => {
-    inventarios.getUltimosLotes((err, data) => {
+    inventarios.getUltimosLotesMP((err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -13,6 +13,18 @@ exports.listarUltimosLotes = (req, res) => {
     });
 }
 
+exports.listarUltimosLotesCajas = (req, res) => {
+    inventarios.getUltimosLotesCajas((err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error ocurred while retrivieving Inventarios."
+            });
+        else {
+            res.send(data);
+        }
+    });
+}
 
 exports.listarCoteosXFechas = (req, res) => {
     var fechaIncio_ = req.params.fechaInicio;

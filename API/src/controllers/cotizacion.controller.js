@@ -160,7 +160,7 @@ exports.busquedaCliente = (req, res) => {
 }
 
 exports.reportPdf = async (req, res) => {
-  var id = req.params.convenioId;
+  var id = req.params.ventaId;
   Ventas.getPdf(id, async (err, data) => {
     if (err) {
       res.status(500).send({
@@ -169,7 +169,7 @@ exports.reportPdf = async (req, res) => {
     } else {
       let datos_recepcion = [];
       datos_recepcion = data[0][0];
-      console.log("datos ", datos_recepcion);
+      console.log("datos ",id,' ', datos_recepcion);
       let pdfBase64 = "";
       ejs.renderFile(path.join(__dirname, '../../template/', "report-costoPrimerCarga-template.ejs"), { datos: datos_recepcion }, async (err, result) => {
         if (err) {

@@ -17,8 +17,8 @@ const Inventarios = function (inventarios) {
     this.porcentaje_elaborados = inventarios.porcentaje_elaborados;
 }
 
-Inventarios.getUltimosLotes = result => {
-    sql.query(`CALL ProcConsultarUltimosLotesRecibidos()`, (err, res) => {
+Inventarios.getUltimosLotesMP = result => {
+    sql.query(`CALL ProcConsultarUltimosLotesRecibidosMP()`, (err, res) => {
         if (err) {
             result(null,
                 {
@@ -31,6 +31,19 @@ Inventarios.getUltimosLotes = result => {
     });
 }
 
+Inventarios.getUltimosLotesCajas = result => {
+    sql.query(`CALL ProcConsultarUltimosLotesRecibidosCajas()`, (err, res) => {
+        if (err) {
+            result(null,
+                {
+                    "codigoerror": err.code,
+                    "data": []
+                });
+            return;
+        }
+        result(null, res[0]);
+    });
+}
 
 Inventarios.findConteosByFecha = (fechaIncio,fechaFin,result) => {
     sql.query(`CALL ProcConsultarConteosXFechas('${fechaIncio}','${fechaFin}')`, (err, res) => {

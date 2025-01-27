@@ -40,7 +40,7 @@ colaboradores.getColaboradores = result => {
 
 
 colaboradores.getCajerosExternos = result => {
-    sql.query(`SELECT * FROM combo_cajerosExternos`, (err, res) => {
+    sql.query(`SELECT * FROM combo_cajerosexternos`, (err, res) => {
         if (err) {
             result(null,
                 {
