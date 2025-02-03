@@ -8,8 +8,11 @@ module.exports = app => {
 
     app.get(`${path}/listarConteosXFechas/:fechaInicio/:fechaFin`,invetarios.listarCoteosXFechas)
 
-    app.post(`${path}/agregarConteo`, invetarios.guardarConteos);
+    app.get(`${path}/listarLotesFueraLocal/`,invetarios.listarLotesFueraLocal)
 
+    app.post(`${path}/agregarConteo`, invetarios.guardarConteos);
+    
+    app.get(`${path}/obtenerMPConMargen/:cantidad`, invetarios.obtenerMPConMargen);
 
     // app.get(`${path}/imagen/:nombreImagen`, recepciones.obtenerImagen)
 

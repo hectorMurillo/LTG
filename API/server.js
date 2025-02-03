@@ -43,6 +43,7 @@ require("./src/routes/clientes.routes")(app);
 require("./src/routes/login.routes")(app);
 require("./src/routes/ventas.routes")(app);
 require("./src/routes/inventario.routes")(app);
+require("./src/routes/salidas.routes")(app);
 require("./src/routes/inventarios.routes")(app);
 require("./src/routes/colaboradores.routes")(app);
 require("./src/routes/productos.routes")(app);

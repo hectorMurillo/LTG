@@ -1,7 +1,7 @@
-const Recepciones = require("../models/salidas");
+const Salidas = require("../models/salidas");
 
 exports.listar = (req, res) => {
-    Recepciones.getAll((err, data) => {
+    Salidas.getAll((err, data) => {
         if (err)
             res.status(500).send({
                 message:
@@ -11,6 +11,32 @@ exports.listar = (req, res) => {
             res.send(data);
         }
     });
+}
+
+exports.agregarSalidaACentro = (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Los datos no pueden venir vacíos"
+        });
+    }
+    const salida = new Salidas({
+        idLote: req.body.idLote == "NULL" ? null : req.body.idLote,
+        idLoteRef: req.body.idLoteRef,
+        nombreCentro: req.body.nombreCentro,
+        nombreRecibe: req.body.nombreRecibe,
+        cantCajas: req.body.cantCajas,
+        codUsuario: req.body.codUsuario
+    });
+    Salidas.createSalidaACentro(salida, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Cliente."
+            });
+        else {
+            res.send(data);
+        }
+    })
 }
 
 

@@ -31,6 +31,21 @@ Inventarios.getUltimosLotesMP = result => {
     });
 }
 
+
+Inventarios.getLotesFuera =  result =>{
+    sql.query(`CALL ProcLotesFueraDeLocal()`, (err, res) => {
+        if (err) {
+            result(null,
+                {
+                    "codigoerror": err.code,
+                    "data": []
+                });
+            return;
+        }
+        result(null, res[0]);
+    });
+}
+
 Inventarios.getUltimosLotesCajas = result => {
     sql.query(`CALL ProcConsultarUltimosLotesRecibidosCajas()`, (err, res) => {
         if (err) {
@@ -47,6 +62,20 @@ Inventarios.getUltimosLotesCajas = result => {
 
 Inventarios.findConteosByFecha = (fechaIncio,fechaFin,result) => {
     sql.query(`CALL ProcConsultarConteosXFechas('${fechaIncio}','${fechaFin}')`, (err, res) => {
+        if (err) {
+            result(null,
+                {
+                    "codigoerror": err.code,
+                    "data": []
+                });
+            return;
+        }
+        result(null, res);
+    });
+}
+
+Inventarios.findLoteMPConMargen = (cantidad, result) => {
+    sql.query(`CALL ProcConsultarLoteMPConMargen('${cantidad}')`, (err, res) => {
         if (err) {
             result(null,
                 {

@@ -4,29 +4,17 @@ const path = require('path');
 
 require("dotenv").config()
 
-const Salida = function (salida) {
-    this.idRecepcion = salida.idRecepcion;
-    this.folio_carta = salida.folio_carta;
-    this.idProveedor = salida.idProveedor;
-    this.fechaRecepcion = salida.fechaRecepcion;
-    this.aliasProveedor = salida.aliasProveedor;
-    this.cantCabezales = salida.cantCabezales;
-    this.cantidadTabletas = salida.cantidadTabletas;
-    this.numCajas = salida.numCajas;
-    this.costoXCaja = salida.costoXCaja;
+const Salidas = function (salida) {
+    this.idLote = salida.idLote;
+    this.idLoteRef = salida.idLoteRef;
+    this.nombreCentro = salida.nombreCentro;
+    this.nombreRecibe = salida.nombreRecibe;
+    this.cantCajas = salida.cantCajas;
     this.codUsuario = salida.codUsuario;
-    this.subtotal = salida.subtotal;
-    this.costoMadera = salida.costoMadera;
-    this.costoFlete = salida.costoFlete;
-    this.costoDescarga = salida.costoDescarga;
-    this.estatusPago = salida.estatusPago;
-    this.tipoLote = salida.tipoLote;
-    this.idCajeroExterno = salida.idCajeroExterno;
-    this.idClienteExterno = salida.idClienteExterno;
 }
 
-Recepciones.getAll = result => {
-    sql.query(`CALL ProcConsultarRecepciones02(0)`, (err, res) => {
+Salidas.getAll = result => {
+    sql.query(`CALL ProcConsultarInformacionSalidas()`, (err, res) => {
         if (err) {
             result(null,
                 {
@@ -40,27 +28,15 @@ Recepciones.getAll = result => {
 }
 
 
-Recepciones.create = (newRecepcion, result) => {
-    let sp = 'CALL ProcAgregaActualizaRecepcion03(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,@pResultado,@pMsg);';
+Salidas.createSalidaACentro = (newSalida, result) => {
+    let sp = 'CALL ProcAgregarMovimientoSalidaACentro(?,?,?,?,?,?,@pResultado,@pMsg);';
     let params = [
-        newsalida.idRecepcion,
-        newsalida.folio_carta,
-        newsalida.fechaRecepcion,
-        newsalida.idProveedor,
-        
-        newsalida.subtotal,
-        newsalida.costoMadera,
-        newsalida.costoFlete,
-        newsalida.costoDescarga,
-
-        newsalida.cantCabezales,
-        newsalida.cantidadTabletas,
-        newsalida.numCajas,
-        1,
-        newsalida.tipoLote,
-        newsalida.costoXCaja,
-        newsalida.idCajeroExterno,
-        newsalida.idClienteExterno
+        newSalida.idLote,
+        newSalida.idLoteRef,
+        newSalida.nombreCentro,
+        newSalida.nombreRecibe,
+        newSalida.cantCajas,
+        1
     ];
     sql.query(sp, params, (err, res) => {
         let info = null;
@@ -71,15 +47,13 @@ Recepciones.create = (newRecepcion, result) => {
             return;
         } else {
             info = { "resultado": res };
-            //Si es inscripción correcta se manda correo
-            // res[0][0].pResultado ? sendMail() : 0;
         }
         result(null, info);
     });
 }
 
 
-module.exports = Recepciones;
+module.exports = Salidas;
 
 
 

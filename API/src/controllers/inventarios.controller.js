@@ -47,6 +47,35 @@ exports.listarCoteosXFechas = (req, res) => {
 }
 
 
+exports.listarLotesFueraLocal = (req, res)=> {
+    inventarios.getLotesFuera((err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error ocurred while retrivieving Inventarios."
+            });
+        else {
+            res.send(data);
+        }
+    });
+}
+
+exports.obtenerMPConMargen = (req, res) =>{
+    var cantidad = req.params.cantidad;
+
+    inventarios.findLoteMPConMargen(cantidad,(err,data)=>{
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error ocurred while retrivieving findLoteMPConMargen."
+            });
+        else {
+            res.send(data);
+        }
+    })
+}
+
+
 exports.guardarConteos = (req, res) => {
 
     if(!req.body){

@@ -1,10 +1,10 @@
 module.exports = app => {
-    const recepciones = require('../controllers/salidas.controller');
+    const salidas = require('../controllers/salidas.controller');
     const path = "/salidas";
 
-    app.get(`${path}/listar`, recepciones.listar);
+    app.get(`${path}/listar`, salidas.listar);
 
-    // app.post(`${path}/agregar/:idRecepcion`, recepciones.agregar);
+    app.post(`${path}/agregarSalidaACentro/`, salidas.agregarSalidaACentro);
 
     // app.get(`${path}/imagen/:nombreImagen`, recepciones.obtenerImagen)
 
