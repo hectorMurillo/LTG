@@ -22,6 +22,7 @@ exports.agregarSalidaACentro = (req, res) => {
     const salida = new Salidas({
         idLote: req.body.idLote == "NULL" ? null : req.body.idLote,
         idLoteRef: req.body.idLoteRef,
+        idLoteRef2: req.body.idLoteRef2,
         nombreCentro: req.body.nombreCentro,
         nombreRecibe: req.body.nombreRecibe,
         cantCajas: req.body.cantCajas,
@@ -38,6 +39,31 @@ exports.agregarSalidaACentro = (req, res) => {
         }
     })
 }
+
+exports.agregarSalidaCaja = (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Los datos no pueden venir vacíos"
+        });
+    }
+    const salida = new Salidas({
+        idSalida: req.body.idSalida == "NULL" ? null : req.body.idSalida,
+        cantCajas: req.body.cantCajas,
+        precioxUnidad: req.body.precioxUnidad
+    });
+    Salidas.createSalidaDeCaja(salida, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Cliente."
+            });
+        else {
+            res.send(data);
+        }
+    })
+}
+
+
 
 
 // exports.agregar = (req, res) => {

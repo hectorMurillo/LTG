@@ -29,10 +29,11 @@ Salidas.getAll = result => {
 
 
 Salidas.createSalidaACentro = (newSalida, result) => {
-    let sp = 'CALL ProcAgregarMovimientoSalidaACentro(?,?,?,?,?,?,@pResultado,@pMsg);';
+    let sp = 'CALL ProcAgregarMovimientoSalidaACentro(?,?,?,?,?,?,?,@pResultado,@pMsg);';
     let params = [
         newSalida.idLote,
         newSalida.idLoteRef,
+        newSalida.idLoteRef2,
         newSalida.nombreCentro,
         newSalida.nombreRecibe,
         newSalida.cantCajas,
@@ -53,7 +54,33 @@ Salidas.createSalidaACentro = (newSalida, result) => {
 }
 
 
+
+Salidas.createSalidaDeCaja = (newSalida, result) => {
+    let sp = 'CALL ProcAgregarSalidaDeCaja(?,?,?,?,@pResultado,@pMsg);';
+    let params = [
+        newSalida.idSalida,
+        newSalida.cantCajas,
+        newSalida.precioxUnidad,
+        newSalida.cliente
+    ];
+    sql.query(sp, params, (err, res) => {
+        let info = null;
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            info = err;
+            return;
+        } else {
+            info = { "resultado": res };
+        }
+        result(null, info);
+    });
+}
+
+
 module.exports = Salidas;
+
+
 
 
 

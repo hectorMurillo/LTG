@@ -6,11 +6,7 @@ module.exports = app => {
 
     app.post(`${path}/agregarSalidaACentro/`, salidas.agregarSalidaACentro);
 
-    // app.get(`${path}/imagen/:nombreImagen`, recepciones.obtenerImagen)
-
-    // app.post(`${path}/agregar`, upload.single('ImgFlyer'), recepciones.agregar);
-
-    // app.post(`${path}/actualizarARevisado/:idCandidato/:idUsuario`, recepciones.actualizaARevisado);
+    app.post(`${path}/agregarSalidaCaja/`, salidas.agregarSalidaCaja)
 };
 
 
